@@ -7,10 +7,9 @@ namespace DataStructuresAndAlgorithms2
     {
         static void Main(string[] args)
         {
-            var tree = new AVLTree();
-            tree.Insert(10);
-            tree.Insert(20);
-            tree.Insert(30);
+            int[] numbers = { 5, 3, 8, 4, 1, 2 };
+
+            Console.WriteLine(MaxHeap.GetKthLargest(numbers, 6));
             Console.ReadLine();
         }
 
