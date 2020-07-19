@@ -7,9 +7,17 @@ namespace DataStructuresAndAlgorithms2
     {
         static void Main(string[] args)
         {
-            int[] numbers = { 5, 3, 8, 4, 1, 2 };
+            Trie trie = new Trie();
+            trie.Insert("cat");
+            trie.Insert("care");
+            trie.Insert("fan");
+            trie.Insert("adult");
 
-            Console.WriteLine(MaxHeap.GetKthLargest(numbers, 6));
+            var words = trie.FindWords("");
+            foreach (var item in words)
+            {
+                Console.WriteLine(item);
+            }
             Console.ReadLine();
         }
 
