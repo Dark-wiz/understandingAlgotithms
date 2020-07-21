@@ -7,14 +7,19 @@ namespace DataStructuresAndAlgorithms2
     {
         static void Main(string[] args)
         {
-            Trie trie = new Trie();
-            trie.Insert("cat");
-            trie.Insert("care");
-            trie.Insert("fan");
-            trie.Insert("adult");
+            Graph graph = new Graph();
+            graph.AddNode("X");
+            graph.AddNode("A");
+            graph.AddNode("B");
+            graph.AddNode("P");
+            graph.AddEdge("X", "A");
+            graph.AddEdge("X", "B");
+            graph.AddEdge("A", "B");
+            graph.AddEdge("A", "P");
+            graph.AddEdge("B", "P");
 
-            var words = trie.FindWords("");
-            foreach (var item in words)
+            var list = graph.TopologicalSort();
+            foreach (var item in list)
             {
                 Console.WriteLine(item);
             }
