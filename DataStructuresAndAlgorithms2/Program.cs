@@ -7,22 +7,14 @@ namespace DataStructuresAndAlgorithms2
     {
         static void Main(string[] args)
         {
-            Graph graph = new Graph();
-            graph.AddNode("X");
+            WeightedGraph graph = new WeightedGraph();
             graph.AddNode("A");
             graph.AddNode("B");
-            graph.AddNode("P");
-            graph.AddEdge("X", "A");
-            graph.AddEdge("X", "B");
-            graph.AddEdge("A", "B");
-            graph.AddEdge("A", "P");
-            graph.AddEdge("B", "P");
-
-            var list = graph.TopologicalSort();
-            foreach (var item in list)
-            {
-                Console.WriteLine(item);
-            }
+            graph.AddNode("C");
+            graph.AddEdge("A", "B", 1);
+            graph.AddEdge("B", "C", 2);
+            graph.AddEdge("A", "C", 10);
+            graph.GetShortestPath("A", "C");
             Console.ReadLine();
         }
 
