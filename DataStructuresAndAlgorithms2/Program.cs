@@ -11,10 +11,15 @@ namespace DataStructuresAndAlgorithms2
             graph.AddNode("A");
             graph.AddNode("B");
             graph.AddNode("C");
-            graph.AddEdge("A", "B", 1);
+            graph.AddNode("D");
+            graph.AddEdge("A", "B", 3);
+            graph.AddEdge("B", "D", 4);
+            graph.AddEdge("C", "D", 5);
+            graph.AddEdge("A", "C", 1);
             graph.AddEdge("B", "C", 2);
-            graph.AddEdge("A", "C", 10);
-            graph.GetShortestPath("A", "C");
+            graph.GetMinimumSpanningTree();
+            graph.Print();
+
             Console.ReadLine();
         }
 

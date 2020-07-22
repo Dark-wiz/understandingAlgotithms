@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 
 namespace DataStructuresAndAlgorithms2
@@ -94,9 +95,72 @@ namespace DataStructuresAndAlgorithms2
                 Priority = priority;
             }
         }
+
+        public bool HasCycle()
+        {
+            HashSet<Node> visited = new HashSet<Node>();
+            foreach (var node in nodes.Values)
+            {
+                if (!visited.Contains(node) && HasCycle(node, null, visited))
+                    return true;
+            }
+            return false;
+        }
+
+        private bool HasCycle(Node node, Node parent, HashSet<Node> visited)
+        {
+            visited.Add(node);
+            foreach (var edge in node.GetEdges())
+            {
+                if (edge.To == parent)
+                    continue;
+                if (visited.Contains(edge.To) || HasCycle(edge.To, node, visited))
+                    return true;
+            }
+            return false;
+        }
+
+        public WeightedGraph GetMinimumSpanningTree()
+        {
+            WeightedGraph tree = new WeightedGraph();
+            if (nodes.Count == 0)
+                return tree;
+            Queue<Edge> edges = new Queue<Edge>();
+            edges.OrderBy(p => p.Weight);
+            var startNode = nodes.Values;
+            foreach (Node item in startNode)
+            {
+                foreach (var edge in item.Edges)
+                    edges.Enqueue(edge);
+                tree.AddNode(item.Label);
+            }
+            if (edges.Count == 0)
+                return tree;
+
+            while (tree.nodes.Count < nodes.Count)
+            {
+                var minEdge = edges.Dequeue();
+                var nextNode = minEdge.To;
+                if (tree.ContainsNode(nextNode.Label))
+                    continue;
+                tree.AddNode(nextNode.Label);
+                tree.AddEdge(minEdge.From.Label, nextNode.Label, minEdge.Weight);
+
+                foreach (var edge in nextNode.GetEdges())
+                    if (!tree.ContainsNode(edge.To.Label))
+                        edges.Enqueue(edge);
+            }
+            return tree;
+        }
+        public bool ContainsNode(string label)
+        {
+            return nodes.ContainsKey(label);
+        }
         public Path GetShortestPath(string from, string to)
         {
             var fromNode = nodes.GetValueOrDefault(from);
+            if (fromNode == null)
+                throw new NullReferenceException();
             var toNode = nodes.GetValueOrDefault(to);
             Dictionary<Node, int> distances = new Dictionary<Node, int>();
             foreach (var node in nodes.Values)
@@ -134,7 +198,7 @@ namespace DataStructuresAndAlgorithms2
                 }
             }
 
-            return BuildPath( toNode, previousNodes);
+            return BuildPath(toNode, previousNodes);
         }
 
         private Path BuildPath(Node toNode, Dictionary<Node, Node> previousNodes)
