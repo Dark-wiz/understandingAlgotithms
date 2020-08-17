@@ -6,7 +6,10 @@ namespace DataStructuresAndAlgorithms3
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            int[] num = { 7, 3, 9, 5, 2, 8 };
+            Search search = new Search();
+            Console.WriteLine(search.ExponentialSearch(num, 8));
+            Console.ReadLine();
         }
     }
 }
